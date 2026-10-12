@@ -1,0 +1,20 @@
+﻿{
+    "itemGroup.expandedmekanism.main":  "Expanded Mekanism",
+    "fluid.expandedmekanism.crude_oil":  "Crude Oil",
+    "item.expandedmekanism.crude_oil_bucket":  "Crude Oil Bucket",
+    "fluid.expandedmekanism.asphalt":  "Asphalt",
+    "item.expandedmekanism.asphalt_bucket":  "Asphalt Bucket",
+    "fluid.expandedmekanism.heavy_oil":  "Heavy Oil",
+    "item.expandedmekanism.heavy_oil_bucket":  "Heavy Oil Bucket",
+    "fluid.expandedmekanism.light_oil":  "Light Oil",
+    "item.expandedmekanism.light_oil_bucket":  "Light Oil Bucket",
+    "fluid.expandedmekanism.naphtha":  "Naphtha",
+    "item.expandedmekanism.naphtha_bucket":  "Naphtha Bucket",
+    "fluid.expandedmekanism.kerosene":  "Kerosene",
+    "item.expandedmekanism.kerosene_bucket":  "Kerosene Bucket",
+    "fluid.expandedmekanism.gasoline":  "Gasoline",
+    "item.expandedmekanism.gasoline_bucket":  "Gasoline Bucket",
+    "gas.expandedmekanism.lpg":  "LPG",
+    "gas.expandedmekanism.methane":  "Methane",
+    "gas.expandedmekanism.ethane":  "Ethane"
+}

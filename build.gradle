@@ -82,6 +82,9 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven{
+        url "https://cursemaven.com"
+    }
     mavenCentral()
     // Kotlin for Forge
     maven { url = 'https://thedarkcolour.github.io/KotlinForForge/' }
@@ -109,7 +112,10 @@ dependencies {
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
+    implementation fg.deobf("curse.maven:jei-238222:8778011")
+    runtimeOnly fg.deobf("curse.maven:Jade-324717:8479276")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
@@ -125,9 +131,13 @@ tasks.named('processResources', ProcessResources).configure {
             minecraft_version_range: minecraft_version_range,
             forge_version          : forge_version,
             forge_version_range    : forge_version_range,
+            loader_version_range   : '[47,)',
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_version            : mod_version,
+            mod_license            : 'MIT',
+            mod_authors            : 'nk00657',
+            mod_description        : 'Expanded Mekanism Addon',
             mekanism_version       : mekanism_version
     ]
     inputs.properties replaceProperties

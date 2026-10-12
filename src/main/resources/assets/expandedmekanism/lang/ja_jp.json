@@ -1,0 +1,20 @@
+﻿{
+    "itemGroup.expandedmekanism.main":  "Expanded Mekanism",
+    "fluid.expandedmekanism.crude_oil":  "原油",
+    "item.expandedmekanism.crude_oil_bucket":  "原油入りバケツ",
+    "fluid.expandedmekanism.asphalt":  "アスファルト",
+    "item.expandedmekanism.asphalt_bucket":  "アスファルト入りバケツ",
+    "fluid.expandedmekanism.heavy_oil":  "重油",
+    "item.expandedmekanism.heavy_oil_bucket":  "重油入りバケツ",
+    "fluid.expandedmekanism.light_oil":  "軽油",
+    "item.expandedmekanism.light_oil_bucket":  "軽油入りバケツ",
+    "fluid.expandedmekanism.naphtha":  "ナフサ",
+    "item.expandedmekanism.naphtha_bucket":  "ナフサ入りバケツ",
+    "fluid.expandedmekanism.kerosene":  "灯油",
+    "item.expandedmekanism.kerosene_bucket":  "灯油入りバケツ",
+    "fluid.expandedmekanism.gasoline":  "ガソリン",
+    "item.expandedmekanism.gasoline_bucket":  "ガソリン入りバケツ",
+    "gas.expandedmekanism.lpg":  "LPG",
+    "gas.expandedmekanism.methane":  "メタン",
+    "gas.expandedmekanism.ethane":  "エタン"
+}
