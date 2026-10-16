@@ -1,0 +1,8 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 100,
+  "fluidInput": {
+    "amount": 100,
+    "tag": "forge:crude_oil"
+  }
+}
