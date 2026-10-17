@@ -1,13 +1,17 @@
 modLoader="kotlinforforge"
 loaderVersion="[4,)"
 license="MIT"
+issueTrackerURL="https://github.com/nk00657/ExpandedMekanism/issues"
 
 [[mods]]
 modId="expandedmekanism"
 version="0.1.0"
 displayName="Expanded Mekanism"
 authors="nk00657"
-description='''Expanded Mekanism Addon'''
+description='''
+Mekanism Addon
+This is an unofficial addon for Mekanism and is not directly affiliated with the official Mekanism project.
+'''
 
 [[dependencies.expandedmekanism]]
 modId="forge"
