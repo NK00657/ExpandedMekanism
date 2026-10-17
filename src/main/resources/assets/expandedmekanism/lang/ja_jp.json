@@ -2,6 +2,7 @@
     "itemGroup.expandedmekanism.main":  "Expanded Mekanism",
     "block.expandedmekanism.well_casing":  "油井ケーシング管",
     "block.expandedmekanism.oil_pumpjack":  "油井ポンプ",
+    "block.expandedmekanism.kerosene_heater":  "灯油ヒーター",
     "fluid.expandedmekanism.crude_oil":  "原油",
     "item.expandedmekanism.crude_oil_bucket":  "原油入りバケツ",
     "fluid.expandedmekanism.asphalt":  "アスファルト",
@@ -18,5 +19,6 @@
     "item.expandedmekanism.gasoline_bucket":  "ガソリン入りバケツ",
     "gas.expandedmekanism.lpg":  "LPG",
     "gas.expandedmekanism.methane":  "メタン",
-    "gas.expandedmekanism.ethane":  "エタン"
+    "gas.expandedmekanism.ethane":  "エタン",
+    "gas.expandedmekanism.gasoline":  "気化ガソリン"
 }

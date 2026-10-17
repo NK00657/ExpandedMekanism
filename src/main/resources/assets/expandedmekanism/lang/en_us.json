@@ -2,6 +2,7 @@
     "itemGroup.expandedmekanism.main":  "Expanded Mekanism",
     "block.expandedmekanism.well_casing":  "Well Casing",
     "block.expandedmekanism.oil_pumpjack":  "Oil Pumpjack",
+    "block.expandedmekanism.kerosene_heater":  "Kerosene Heater",
     "fluid.expandedmekanism.crude_oil":  "Crude Oil",
     "item.expandedmekanism.crude_oil_bucket":  "Crude Oil Bucket",
     "fluid.expandedmekanism.asphalt":  "Asphalt",
@@ -18,5 +19,6 @@
     "item.expandedmekanism.gasoline_bucket":  "Gasoline Bucket",
     "gas.expandedmekanism.lpg":  "LPG",
     "gas.expandedmekanism.methane":  "Methane",
-    "gas.expandedmekanism.ethane":  "Ethane"
+    "gas.expandedmekanism.ethane":  "Ethane",
+    "gas.expandedmekanism.gasoline":  "Gasoline"
 }

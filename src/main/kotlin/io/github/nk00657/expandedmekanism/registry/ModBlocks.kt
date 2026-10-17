@@ -1,43 +1,39 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
+import io.github.nk00657.expandedmekanism.common.block.KeroseneHeaterBlock
 import io.github.nk00657.expandedmekanism.common.block.OilPumpJackBlock
-import io.github.nk00657.expandedmekanism.common.tile.machine.OilPumpJackBlockEntity
+import mekanism.common.registration.impl.BlockDeferredRegister
+import mekanism.common.registration.impl.BlockRegistryObject
 import net.minecraft.world.item.BlockItem
-import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.registries.ForgeRegistries
-import net.minecraftforge.registries.RegistryObject
-import java.util.function.Supplier
+import net.minecraftforge.eventbus.api.IEventBus
 
 object ModBlocks {
-    val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, ExpandedMekanism.MOD_ID)
+    // Forge 標準ではなく Mekanism の BlockDeferredRegister を使用
+    val BLOCKS: BlockDeferredRegister = BlockDeferredRegister(ExpandedMekanism.MOD_ID)
 
-    val WELL_CASING: RegistryObject<Block> = registerBlock("well_casing"){
+    // 1. ケーシング管 (通常ブロック)
+    // 3.5f: 破壊硬度 (採掘時間の基準値)
+    val WELL_CASING: BlockRegistryObject<Block, BlockItem> = BLOCKS.register("well_casing") {
         Block(BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops())
     }
 
-    val OIL_PUMPJACK: RegistryObject<Block> = registerBlock("oil_pumpjack") {
+    // 2. 油井ポンプ
+    // 5.0f: 機械ブロックとしての破壊硬度
+    val OIL_PUMPJACK: BlockRegistryObject<OilPumpJackBlock, BlockItem> = BLOCKS.register("oil_pumpjack") {
         OilPumpJackBlock(BlockBehaviour.Properties.of().strength(5.0f).requiresCorrectToolForDrops())
     }
 
-    val KEROSENE_HEATER: RegistryObject<Block> = registerBlock("kerosene_heater"){
-        TODO("Implement Kerosene Heater Block")
+    // 3. 灯油ヒーター
+    // 4.0f: 破壊硬度
+    val KEROSENE_HEATER: BlockRegistryObject<KeroseneHeaterBlock, BlockItem> = BLOCKS.register("kerosene_heater") {
+        KeroseneHeaterBlock(BlockBehaviour.Properties.of().strength(4.0f).requiresCorrectToolForDrops())
     }
 
-
-    private fun <T : Block> registerBlock(
-        name: String,
-        itemProperties: Item.Properties = Item.Properties(),
-        blockSupplier: Supplier<T>
-    ): RegistryObject<T>{
-        val blockObj = BLOCKS.register(name, blockSupplier)
-
-        ModItems.ITEMS.register(name){
-            BlockItem(blockObj.get(), itemProperties)
-        }
-        return blockObj
+    fun register(bus: IEventBus) {
+        // ブロックと自動生成されたブロックアイテムの両方がイベントバスへ登録される
+        BLOCKS.register(bus)
     }
 }

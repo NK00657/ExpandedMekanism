@@ -1,4 +1,4 @@
-package io.github.nk00657.expandedmekanism.common.block.base
+package io.github.nk00657.expandedmekanism.common.tile.base
 
 import mekanism.common.block.interfaces.IHasTileEntity
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject

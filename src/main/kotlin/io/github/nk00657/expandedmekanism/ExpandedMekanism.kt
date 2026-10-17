@@ -21,9 +21,8 @@ class ExpandedMekanism {
     init {
         val bus = MOD_BUS
 
-        ModBlocks.BLOCKS.register(bus)
+        ModBlocks.register(bus)
         ModItems.ITEMS.register(bus)
-        ModBlockEntities.BLOCK_ENTITIES.register(bus)
         ModBlockEntities.register(bus)
         ModFluids.register(bus)
         ModGases.register(bus)

@@ -13,6 +13,7 @@ $items = @(
 $blocks = @(
     @{ id = "well_casing";   ja = "油井ケーシング管"; en = "Well Casing" },
     @{ id = "oil_pumpjack";  ja = "油井ポンプ";       en = "Oil Pumpjack" }
+    @{ id = "kerosene_heater";  ja = "灯油ヒーター";     en = "Kerosene Heater" }
 )
 
 # 流体定義
@@ -31,6 +32,7 @@ $gases = @(
     @{ id = "lpg";        ja = "LPG";          en = "LPG" },
     @{ id = "methane";    ja = "メタン";       en = "Methane" },
     @{ id = "ethane";     ja = "エタン";       en = "Ethane" }
+    @{ id = "gasoline";    ja = "気化ガソリン";     en = "Gasoline" }
 )
 
 # ==========================================
