@@ -24,6 +24,7 @@ class ExpandedMekanism {
         ModBlocks.BLOCKS.register(bus)
         ModItems.ITEMS.register(bus)
         ModBlockEntities.BLOCK_ENTITIES.register(bus)
+        ModBlockEntities.register(bus)
         ModFluids.register(bus)
         ModGases.register(bus)
         ModCreativeTabs.register(bus)
