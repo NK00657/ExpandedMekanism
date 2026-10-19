@@ -11,29 +11,22 @@ import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraftforge.eventbus.api.IEventBus
 
 object ModBlocks {
-    // Forge 標準ではなく Mekanism の BlockDeferredRegister を使用
+
     val BLOCKS: BlockDeferredRegister = BlockDeferredRegister(ExpandedMekanism.MOD_ID)
 
-    // 1. ケーシング管 (通常ブロック)
-    // 3.5f: 破壊硬度 (採掘時間の基準値)
     val WELL_CASING: BlockRegistryObject<Block, BlockItem> = BLOCKS.register("well_casing") {
         Block(BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops())
     }
 
-    // 2. 油井ポンプ
-    // 5.0f: 機械ブロックとしての破壊硬度
-    val OIL_PUMPJACK: BlockRegistryObject<OilPumpJackBlock, BlockItem> = BLOCKS.register("oil_pumpjack") {
-        OilPumpJackBlock(BlockBehaviour.Properties.of().strength(5.0f).requiresCorrectToolForDrops())
-    }
+    val OIL_PUMPJACK: BlockRegistryObject<OilPumpJackBlock, BlockItem> = BLOCKS.register(
+        "oil_pumpjack"
+    ) { OilPumpJackBlock(BlockBehaviour.Properties.of().strength(5.0f).requiresCorrectToolForDrops()) }
 
-    // 3. 灯油ヒーター
-    // 4.0f: 破壊硬度
     val KEROSENE_HEATER: BlockRegistryObject<KeroseneHeaterBlock, BlockItem> = BLOCKS.register("kerosene_heater") {
         KeroseneHeaterBlock(BlockBehaviour.Properties.of().strength(4.0f).requiresCorrectToolForDrops())
     }
 
     fun register(bus: IEventBus) {
-        // ブロックと自動生成されたブロックアイテムの両方がイベントバスへ登録される
         BLOCKS.register(bus)
     }
 }

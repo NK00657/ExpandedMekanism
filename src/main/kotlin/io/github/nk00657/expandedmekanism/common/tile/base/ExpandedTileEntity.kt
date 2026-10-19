@@ -12,13 +12,18 @@ abstract class ExpandedTileEntity(
     pos: BlockPos,
     state: BlockState
 ) : TileEntityMekanism(
+
+
     object : IBlockProvider {
         override fun getBlock(): Block = state.block
         override fun asItem(): Item = state.block.asItem()
+
     },
     pos,
     state
 ){
+
+
     override fun getName(): Component {
         return super.getName()
     }

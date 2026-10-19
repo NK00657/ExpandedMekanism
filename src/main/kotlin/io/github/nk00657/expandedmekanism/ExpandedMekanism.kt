@@ -3,6 +3,7 @@ package io.github.nk00657.expandedmekanism
 import io.github.nk00657.expandedmekanism.common.event.ModFuelTweaks
 import io.github.nk00657.expandedmekanism.registry.ModBlockEntities
 import io.github.nk00657.expandedmekanism.registry.ModBlocks
+import io.github.nk00657.expandedmekanism.registry.ModContainerTypes
 import io.github.nk00657.expandedmekanism.registry.ModCreativeTabs
 import io.github.nk00657.expandedmekanism.registry.ModFluids
 import io.github.nk00657.expandedmekanism.registry.ModGases
@@ -27,6 +28,7 @@ class ExpandedMekanism {
         ModFluids.register(bus)
         ModGases.register(bus)
         ModCreativeTabs.register(bus)
+        ModContainerTypes.register(bus)
 
         // エチレン弱体化のセットアップイベント
         bus.addListener(Consumer<FMLCommonSetupEvent> { event ->
