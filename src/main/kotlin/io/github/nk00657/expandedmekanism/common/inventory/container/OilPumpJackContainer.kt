@@ -16,10 +16,6 @@ class OilPumpJackContainer(
     inv,
     tile
 ) {
-    override fun addSlots() {
-        super.addSlots()
-        addInventorySlots(inv)
-    }
 
     override fun getInventoryYOffset(): Int = 84
 

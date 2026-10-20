@@ -13,6 +13,8 @@ import mekanism.common.capabilities.holder.energy.EnergyContainerHelper
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder
+import mekanism.common.inventory.container.MekanismContainer
+import mekanism.common.inventory.container.sync.SyncableBoolean
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.tags.BiomeTags
@@ -30,11 +32,13 @@ class OilPumpJackBlockEntity(
     state: BlockState
 ) : ExpandedTileEntity(pos, state) {
 
-    private var isValidWell: Boolean = false
+    internal var isValidWell: Boolean = false
+        private set
+
 
     private var checkTimer: Int = 0
 
-    private val requireEnergy: FloatingLong = FloatingLong.create(1000.0)
+    internal val requireEnergy: FloatingLong = FloatingLong.create(1000.0)
 
     lateinit var energyContainer: BasicEnergyContainer
     lateinit var crudeOilTank: BasicFluidTank
@@ -140,5 +144,10 @@ class OilPumpJackBlockEntity(
             currentY--
         }
         return false
+    }
+
+    override fun addContainerTrackers(container: MekanismContainer) {
+        super.addContainerTrackers(container)
+        container.track(SyncableBoolean.create({isValidWell},{value -> isValidWell}))
     }
 }
