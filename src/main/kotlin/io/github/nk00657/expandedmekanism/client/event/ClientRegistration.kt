@@ -14,12 +14,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 
 @Mod.EventBusSubscriber(modid = ExpandedMekanism.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
 object ClientRegistration {
-    @SubscribeEvent
+    /*@SubscribeEvent
     fun onClientSetup(event : FMLClientSetupEvent){
         event.enqueueWork {
             MenuScreens.register(ModContainerTypes.OIL_PUMPJACK.get(), ::GuiOilPumpJack)
         }
-    }
+    }*/
     @SubscribeEvent
     fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
         ClientRegistrationUtil.registerBucketColorHandler(event, ModFluids.FLUIDS)

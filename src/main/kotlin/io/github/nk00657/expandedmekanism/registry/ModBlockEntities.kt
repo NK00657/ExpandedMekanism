@@ -12,11 +12,9 @@ object ModBlockEntities {
     val BLOCK_ENTITIES: TileEntityTypeDeferredRegister =
         TileEntityTypeDeferredRegister(ExpandedMekanism.MOD_ID)
 
-    // 油井ポンプ (ExpandedTileEntity 基底に移行した場合)
     val OIL_PUMPJACK: TileEntityTypeRegistryObject<OilPumpJackBlockEntity> =
         BLOCK_ENTITIES.register(ModBlocks.OIL_PUMPJACK, ::OilPumpJackBlockEntity)
 
-    // 灯油ヒーター (BlockRegistryObject を渡せるため型エラーが消える)
     val KEROSENE_HEATER: TileEntityTypeRegistryObject<KeroseneHeaterBlockEntity> =
         BLOCK_ENTITIES.register(ModBlocks.KEROSENE_HEATER, ::KeroseneHeaterBlockEntity)
 

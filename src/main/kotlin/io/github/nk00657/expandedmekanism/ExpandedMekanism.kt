@@ -8,6 +8,7 @@ import io.github.nk00657.expandedmekanism.registry.ModCreativeTabs
 import io.github.nk00657.expandedmekanism.registry.ModFluids
 import io.github.nk00657.expandedmekanism.registry.ModGases
 import io.github.nk00657.expandedmekanism.registry.ModItems
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
@@ -17,6 +18,8 @@ import java.util.function.Consumer
 class ExpandedMekanism {
     companion object {
         const val MOD_ID: String = "expandedmekanism"
+        @Suppress("DEPRECATION")
+        fun rl(path: String) = ResourceLocation(MOD_ID, path)
     }
 
     init {
