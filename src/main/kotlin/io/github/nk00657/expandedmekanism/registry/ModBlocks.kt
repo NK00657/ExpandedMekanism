@@ -1,23 +1,18 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
-import io.github.nk00657.expandedmekanism.common.block.KeroseneHeaterBlock
-import io.github.nk00657.expandedmekanism.common.block.OilPumpJackBlock
+import io.github.nk00657.expandedmekanism.common.tile.machine.DistillationControllerBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.KeroseneHeaterBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.OilPumpJackBlockEntity
 import mekanism.common.block.prefab.BlockBase
 import mekanism.common.block.prefab.BlockTile
 import mekanism.common.content.blocktype.BlockType
 import mekanism.common.content.blocktype.BlockTypeTile
-import mekanism.common.content.blocktype.Machine
 import mekanism.common.item.block.ItemBlockTooltip
 import mekanism.common.item.block.machine.ItemBlockMachine
 import mekanism.common.registration.impl.BlockDeferredRegister
 import mekanism.common.registration.impl.BlockRegistryObject
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraftforge.eventbus.api.IEventBus
 
 object ModBlocks {
@@ -54,6 +49,17 @@ object ModBlocks {
                 // 4.0f: ブロックの硬さ, 12.0f: 爆破耐性
                 BlockTile.BlockTileModel(ModBlockTypes.KEROSENE_HEATER) { props ->
                     props.strength(4.0f, 12.0f).requiresCorrectToolForDrops()
+                }
+            },
+            ::ItemBlockMachine
+        )
+
+    val DISTILLATION_CONTROLLER: BlockRegistryObject<BlockTile.BlockTileModel<DistillationControllerBlockEntity, BlockTypeTile<DistillationControllerBlockEntity>>, ItemBlockMachine> =
+        BLOCKS.register(
+            "distillation_controller",
+            {
+                BlockTile.BlockTileModel(ModBlockTypes.DISTILLATION_CONTROLLER) { props ->
+                    props.strength(4.0f,12.0f).requiresCorrectToolForDrops()
                 }
             },
             ::ItemBlockMachine

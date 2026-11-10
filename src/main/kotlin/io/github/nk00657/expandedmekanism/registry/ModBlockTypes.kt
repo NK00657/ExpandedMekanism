@@ -1,6 +1,7 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.common.ExpandedLang
+import io.github.nk00657.expandedmekanism.common.tile.machine.DistillationControllerBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.KeroseneHeaterBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.OilPumpJackBlockEntity
 import mekanism.api.Upgrade
@@ -21,6 +22,7 @@ object ModBlockTypes {
         .createBlock(ExpandedLang.DESCRIPTION_WELL_CASING)
         .build()
 
+    @Suppress("UNCHECKED_CAST")
     val OIL_PUMPJACK: BlockTypeTile<OilPumpJackBlockEntity> = BlockTileBuilder
         .createBlock({ ModBlockEntities.OIL_PUMPJACK }, ExpandedLang.DESCRIPTION_OIL_PUMPJACK)
         .withGui { ModContainerTypes.OIL_PUMPJACK }
@@ -41,5 +43,23 @@ object ModBlockTypes {
         .createBlock({ ModBlockEntities.KEROSENE_HEATER}, ExpandedLang.DESCRIPTION_KEROSENE_HEATER)
         .with(Attributes.SECURITY, Attributes.ACTIVE_MELT_LIGHT, AttributeStateFacing())
         .build() as BlockTypeTile<KeroseneHeaterBlockEntity>
+
+    @Suppress("UNCHECKED_CAST")
+    val DISTILLATION_CONTROLLER: BlockTypeTile<DistillationControllerBlockEntity> = BlockTileBuilder
+        .createBlock(
+            { ModBlockEntities.DISTILLATION_CONTROLLER },
+            { "description.expandedmekanism.distillation_controller" }
+        )
+        .withGui { ModContainerTypes.DISTILLATION_CONTROLLER }
+        .with(
+            Attributes.ACTIVE_LIGHT,
+            AttributeStateFacing(),
+            Attributes.INVENTORY,
+            Attributes.SECURITY,
+            Attributes.REDSTONE,
+            Attributes.COMPARATOR
+        )
+        .withSupportedUpgrades(EnumSet.of(Upgrade.SPEED, Upgrade.MUFFLING))
+        .build() as BlockTypeTile<DistillationControllerBlockEntity>
 
 }

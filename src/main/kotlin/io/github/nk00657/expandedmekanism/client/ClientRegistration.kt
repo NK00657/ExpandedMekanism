@@ -1,6 +1,7 @@
 package io.github.nk00657.expandedmekanism.client
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
+import io.github.nk00657.expandedmekanism.client.gui.GuiDistillationController
 import io.github.nk00657.expandedmekanism.client.gui.GuiOilPumpJack
 import io.github.nk00657.expandedmekanism.registry.ModContainerTypes
 import net.minecraft.client.gui.screens.MenuScreens
@@ -16,6 +17,7 @@ object ClientRegistration {
     fun onClientSetup(event: FMLClientSetupEvent) {
         event.enqueueWork {
             MenuScreens.register(ModContainerTypes.OIL_PUMPJACK.get(), ::GuiOilPumpJack)
+            MenuScreens.register(ModContainerTypes.DISTILLATION_CONTROLLER.get(), ::GuiDistillationController)
         }
     }
 }

@@ -116,6 +116,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:jei-238222:8778011")
     runtimeOnly fg.deobf("curse.maven:Jade-324717:8479276")
+    runtimeOnly fg.deobf("curse.maven:spark-361579:4738952")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
@@ -145,6 +146,9 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
+}
+tasks.withType(ProcessResources).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 compileKotlin {

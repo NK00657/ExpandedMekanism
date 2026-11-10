@@ -1,5 +1,6 @@
 package io.github.nk00657.expandedmekanism
 
+import com.mojang.logging.LogUtils
 import io.github.nk00657.expandedmekanism.common.event.ModFuelTweaks
 import io.github.nk00657.expandedmekanism.registry.ModBlockEntities
 import io.github.nk00657.expandedmekanism.registry.ModBlocks
@@ -16,6 +17,7 @@ import java.util.function.Consumer
 
 @Mod(ExpandedMekanism.MOD_ID)
 class ExpandedMekanism {
+    private val logger = LogUtils.getLogger()
     companion object {
         const val MOD_ID: String = "expandedmekanism"
         @Suppress("DEPRECATION")

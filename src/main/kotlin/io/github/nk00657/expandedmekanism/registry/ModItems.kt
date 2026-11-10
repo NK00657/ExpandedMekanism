@@ -10,6 +10,10 @@ import net.minecraftforge.registries.RegistryObject
 object ModItems {
     val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, ExpandedMekanism.MOD_ID)
 
+     val PETROLEUM_COKE: RegistryObject<Item?>? = ITEMS.register("petroleum_coke"){
+        Item(Item.Properties())
+     }
+
     fun register(bus: IEventBus) {
         ITEMS.register(bus)
     }

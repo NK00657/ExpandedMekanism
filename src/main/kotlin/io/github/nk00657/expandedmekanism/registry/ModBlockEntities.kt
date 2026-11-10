@@ -1,6 +1,7 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
+import io.github.nk00657.expandedmekanism.common.tile.machine.DistillationControllerBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.KeroseneHeaterBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.OilPumpJackBlockEntity
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister
@@ -17,6 +18,9 @@ object ModBlockEntities {
 
     val KEROSENE_HEATER: TileEntityTypeRegistryObject<KeroseneHeaterBlockEntity> =
         BLOCK_ENTITIES.register(ModBlocks.KEROSENE_HEATER, ::KeroseneHeaterBlockEntity)
+
+    val DISTILLATION_CONTROLLER: TileEntityTypeRegistryObject<DistillationControllerBlockEntity> =
+        BLOCK_ENTITIES.register(ModBlocks.DISTILLATION_CONTROLLER, ::DistillationControllerBlockEntity)
 
     fun register(bus: IEventBus) {
         BLOCK_ENTITIES.register(bus)

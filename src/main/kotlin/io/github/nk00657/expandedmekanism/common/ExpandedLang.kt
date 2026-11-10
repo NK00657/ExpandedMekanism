@@ -11,6 +11,7 @@ enum class ExpandedLang(
     DESCRIPTION_OIL_PUMPJACK("description", "oil_pumpjack"),
     DESCRIPTION_KEROSENE_HEATER("description", "kerosene_heater"),
     DESCRIPTION_WELL_CASING("description", "well_casing");
+    //DESCRIPTION_DISTILLATION_CONTROLLER("description","distillation_controller");
 
 
     private val key: String = Util.makeDescriptionId(type, ExpandedMekanism.rl(path))
