@@ -1,37 +1,33 @@
 package io.github.nk00657.expandedmekanism.common.event
 
-//import io.github.nk00657.expandedmekanism.ExpandedMekanism
-import mekanism.api.chemical.Chemical
 import com.mojang.logging.LogUtils
+import mekanism.api.chemical.Chemical
 import mekanism.api.chemical.gas.attribute.GasAttributes
 import mekanism.api.math.FloatingLong
 import mekanism.common.registries.MekanismGases
-//import net.minecraftforge.eventbus.api.SubscribeEvent
-//import net.minecraftforge.fml.common.Mod
-//import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent
 import java.lang.reflect.Field
 
-//@Mod.EventBusSubscriber(modid = ExpandedMekanism.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 object ModFuelTweaks {
-
-    //@SubscribeEvent
-    //fun onCommonSetup(event: FMLCommonSetupEvent) {
-    //    event.enqueueWork {
-    //        nerfEthylene()
-    //    }
-    //}
     private val LOGGER = LogUtils.getLogger()
 
-     fun nerfEthylene() {
-        val ethylene = MekanismGases.ETHENE.get()
+    fun onCompleteSetup(event: FMLLoadCompleteEvent) {
+        event.enqueueWork {
+            nerfEthylene()
+        }
+    }
 
-        val nerfedFuel = GasAttributes.Fuel(
-            2,
-            FloatingLong.create(4000.0)
-        )
-
+    internal fun nerfEthylene() {
         try {
-            // Chemical クラスの attributeMap フィールドにアクセス
+            val ethylene = MekanismGases.ETHENE.get()
+
+            // ナーフ値: 燃焼時間 5t, エネルギー密度 4,000 J (約 1.6 kFE/mB)
+            // 5: 燃焼ブースト倍率を抑制する目標値 (40 -> 5 tick)
+            val nerfedFuel = GasAttributes.Fuel(
+                5,
+                FloatingLong.create(4000.0)
+            )
+
             val field: Field = Chemical::class.java.getDeclaredField("attributeMap").apply {
                 isAccessible = true
             }
@@ -41,9 +37,16 @@ object ModFuelTweaks {
 
             if (attributeMap != null) {
                 attributeMap[GasAttributes.Fuel::class.java] = nerfedFuel
-                LOGGER.info("Successfully nerfed Ethylene fuel attribute")
+
+                // 検証用ログ: 実際に書き換わった値を取り出して確認
+                val currentFuel = ethylene.get(GasAttributes.Fuel::class.java)
+                LOGGER.info(
+                    "Ethylene nerfed successfully! BurnTicks: {}, EnergyDensity: {}",
+                    currentFuel?.burnTicks,
+                    currentFuel?.energyPerTick
+                )
             } else {
-                LOGGER.error("Failed to nerf Ethylene fuel attribute: attributeMap is null")
+                LOGGER.warn("attributeMap was null for Ethylene!")
             }
         } catch (e: Exception) {
             LOGGER.error("Failed to nerf Ethylene fuel attribute!", e)

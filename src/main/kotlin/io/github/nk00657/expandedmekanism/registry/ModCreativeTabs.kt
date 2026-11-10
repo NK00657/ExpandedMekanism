@@ -21,7 +21,13 @@ object ModCreativeTabs {
                 ModFluids.FLUIDS.allFluids.forEach { fluidRegistryObject ->
                     output.accept(fluidRegistryObject.bucket)
                 }
-                ModItems.ITEMS
+                ModBlocks.BLOCKS.allBlocks.forEach { blockProvider->
+                    output.accept(blockProvider)
+                }
+                ModItems.ITEMS.entries.forEach { registryObject ->
+                    output.accept( registryObject.get())
+                }
+
             }
             .build()
     }

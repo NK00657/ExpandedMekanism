@@ -1,43 +1,71 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
-import io.github.nk00657.expandedmekanism.common.block.OilPumpJackBlock
+import io.github.nk00657.expandedmekanism.common.tile.machine.DistillationControllerBlockEntity
+import io.github.nk00657.expandedmekanism.common.tile.machine.KeroseneHeaterBlockEntity
 import io.github.nk00657.expandedmekanism.common.tile.machine.OilPumpJackBlockEntity
-import net.minecraft.world.item.BlockItem
+import mekanism.common.block.prefab.BlockBase
+import mekanism.common.block.prefab.BlockTile
+import mekanism.common.content.blocktype.BlockType
+import mekanism.common.content.blocktype.BlockTypeTile
+import mekanism.common.item.block.ItemBlockTooltip
+import mekanism.common.item.block.machine.ItemBlockMachine
+import mekanism.common.registration.impl.BlockDeferredRegister
+import mekanism.common.registration.impl.BlockRegistryObject
 import net.minecraft.world.item.Item
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.registries.ForgeRegistries
-import net.minecraftforge.registries.RegistryObject
-import java.util.function.Supplier
+import net.minecraftforge.eventbus.api.IEventBus
 
 object ModBlocks {
-    val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, ExpandedMekanism.MOD_ID)
 
-    val WELL_CASING: RegistryObject<Block> = registerBlock("well_casing"){
-        Block(BlockBehaviour.Properties.of().strength(3.5f).requiresCorrectToolForDrops())
-    }
+    val BLOCKS: BlockDeferredRegister = BlockDeferredRegister(ExpandedMekanism.MOD_ID)
 
-    val OIL_PUMPJACK: RegistryObject<Block> = registerBlock("oil_pumpjack") {
-        OilPumpJackBlock(BlockBehaviour.Properties.of().strength(5.0f).requiresCorrectToolForDrops())
-    }
+    val WELL_CASING: BlockRegistryObject<BlockBase<BlockType>, ItemBlockTooltip<BlockBase<BlockType>>> =
+        BLOCKS.register(
+            "well_casing",
+            {
+                // 3.5f: ブロックの硬さ(destroyTime), 9.0f: 爆破耐性(explosionResistance)
+                BlockBase(ModBlockTypes.WELL_CASING) { props -> props.strength(3.5f, 9.0f).requiresCorrectToolForDrops() }
+            },
+            { block -> ItemBlockTooltip(block, Item.Properties()) }
+        )
 
-    val KEROSENE_HEATER: RegistryObject<Block> = registerBlock("kerosene_heater"){
-        TODO("Implement Kerosene Heater Block")
-    }
+    // ModBlocks.kt 内の OIL_PUMPJACK の型定義
+    val OIL_PUMPJACK: BlockRegistryObject<BlockTile.BlockTileModel<OilPumpJackBlockEntity, BlockTypeTile<OilPumpJackBlockEntity>>, ItemBlockMachine> =
+        BLOCKS.register(
+            "oil_pumpjack",
+            {
+                // 5.0f: ブロックの硬さ(destroyTime), 16.0f: 爆破耐性(explosionResistance)
+                BlockTile.BlockTileModel(ModBlockTypes.OIL_PUMPJACK) { props ->
+                    props.strength(5.0f, 16.0f).requiresCorrectToolForDrops()
+                }
+            },
+            ::ItemBlockMachine
+        )
 
+    val KEROSENE_HEATER: BlockRegistryObject<BlockTile.BlockTileModel<KeroseneHeaterBlockEntity, BlockTypeTile<KeroseneHeaterBlockEntity>>, ItemBlockMachine> =
+        BLOCKS.register(
+            "kerosene_heater",
+            {
+                // 4.0f: ブロックの硬さ, 12.0f: 爆破耐性
+                BlockTile.BlockTileModel(ModBlockTypes.KEROSENE_HEATER) { props ->
+                    props.strength(4.0f, 12.0f).requiresCorrectToolForDrops()
+                }
+            },
+            ::ItemBlockMachine
+        )
 
-    private fun <T : Block> registerBlock(
-        name: String,
-        itemProperties: Item.Properties = Item.Properties(),
-        blockSupplier: Supplier<T>
-    ): RegistryObject<T>{
-        val blockObj = BLOCKS.register(name, blockSupplier)
+    val DISTILLATION_CONTROLLER: BlockRegistryObject<BlockTile.BlockTileModel<DistillationControllerBlockEntity, BlockTypeTile<DistillationControllerBlockEntity>>, ItemBlockMachine> =
+        BLOCKS.register(
+            "distillation_controller",
+            {
+                BlockTile.BlockTileModel(ModBlockTypes.DISTILLATION_CONTROLLER) { props ->
+                    props.strength(4.0f,12.0f).requiresCorrectToolForDrops()
+                }
+            },
+            ::ItemBlockMachine
+        )
 
-        ModItems.ITEMS.register(name){
-            BlockItem(blockObj.get(), itemProperties)
-        }
-        return blockObj
+    fun register(bus: IEventBus) {
+        BLOCKS.register(bus)
     }
 }
