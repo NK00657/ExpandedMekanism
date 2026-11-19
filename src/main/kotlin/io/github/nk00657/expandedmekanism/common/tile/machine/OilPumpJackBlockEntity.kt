@@ -142,13 +142,13 @@ class OilPumpJackBlockEntity(
 
         // レッドストーン制御（パルスやRS信号による停止）と油井の有効性をチェック
         if (!isValidWell || !MekanismUtils.canFunction(this)) {
-            setActive(false)
+            active = false
             return
         }
 
         val energyPerTick = energyContainer.energyPerTick
         if (energyContainer.energy.smallerThan(energyPerTick)) {
-            setActive(false)
+            active = false
             return
         }
 
@@ -160,9 +160,9 @@ class OilPumpJackBlockEntity(
             energyContainer.extract(energyPerTick, Action.EXECUTE, AutomationType.INTERNAL)
             crudeOilTank.insert(FluidStack(ModFluids.CRUDE_OIL.stillFluid, baseCrudeAmount), Action.EXECUTE, AutomationType.INTERNAL)
             waterTank.insert(FluidStack(Fluids.WATER, baseWaterAmount), Action.EXECUTE, AutomationType.INTERNAL)
-            setActive(true)
+            active = true
         } else {
-            setActive(false)
+            active = false
         }
     }
 

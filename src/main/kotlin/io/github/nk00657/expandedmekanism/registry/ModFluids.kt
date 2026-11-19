@@ -1,6 +1,7 @@
 package io.github.nk00657.expandedmekanism.registry
 
 import io.github.nk00657.expandedmekanism.ExpandedMekanism
+import io.github.nk00657.expandedmekanism.dategen.Translation
 import mekanism.common.registration.impl.FluidDeferredRegister
 import net.minecraft.sounds.SoundEvents
 import net.minecraftforge.common.SoundActions
@@ -9,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus
 object ModFluids {
     val FLUIDS: FluidDeferredRegister = FluidDeferredRegister(ExpandedMekanism.MOD_ID)
 
+    @Translation(ja = "原油", en = "Crude Oil")
     val CRUDE_OIL = FLUIDS.register(
         "crude_oil",
         { properties ->
@@ -23,6 +25,7 @@ object ModFluids {
         }
     )
 
+    @Translation(ja = "アスファルト", en = "Asphalt")
     val ASPHALT = FLUIDS.register(
         "asphalt",
         { properties ->
@@ -37,6 +40,7 @@ object ModFluids {
         }
     )
 
+    @Translation(ja = "重油", en = "Heavy Oil")
     val HEAVY_OIL = FLUIDS.register(
         "heavy_oil",
         { properties ->

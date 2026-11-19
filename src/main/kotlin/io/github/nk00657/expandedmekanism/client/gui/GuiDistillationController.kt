@@ -5,12 +5,7 @@ import mekanism.client.gui.GuiConfigurableTile
 import mekanism.client.gui.element.GuiInnerScreen
 import mekanism.client.gui.element.gauge.GaugeType
 import mekanism.client.gui.element.gauge.GuiFluidGauge
-import mekanism.client.gui.element.tab.GuiHeatTab
-import mekanism.common.MekanismLang
 import mekanism.common.inventory.container.tile.MekanismTileContainer
-import mekanism.common.util.MekanismUtils
-import mekanism.common.util.UnitDisplayUtils.TemperatureUnit
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -77,16 +72,7 @@ class GuiDistillationController(
         )
 
         addRenderableWidget(
-            GuiHeatTab(this) {
-                val temp = MekanismUtils.getTemperatureDisplay(tile.totalTemperature, TemperatureUnit.KELVIN, true)
-                val transfer = MekanismUtils.getTemperatureDisplay(tile.lastTransferLoss, TemperatureUnit.KELVIN, false)
-                val environment = MekanismUtils.getTemperatureDisplay(tile.lastEnvironmentLoss, TemperatureUnit.KELVIN, false)
-                listOf(
-                    MekanismLang.TEMPERATURE.translate(temp),
-                    MekanismLang.TRANSFERRED_RATE.translate(transfer),
-                    MekanismLang.DISSIPATED_RATE.translate(environment)
-                )
-            }
+            createHeatTab()
         )
     }
 }

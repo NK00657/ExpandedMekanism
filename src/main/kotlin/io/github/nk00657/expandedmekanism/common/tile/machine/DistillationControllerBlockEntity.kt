@@ -1,26 +1,21 @@
 package io.github.nk00657.expandedmekanism.common.tile.machine
 
+import io.github.nk00657.expandedmekanism.common.tile.component.HeatMachineDelegate
+import io.github.nk00657.expandedmekanism.common.tile.component.IExpandedHeatMachine
 import io.github.nk00657.expandedmekanism.registry.ModBlocks
 import io.github.nk00657.expandedmekanism.registry.ModFluids
 import io.github.nk00657.expandedmekanism.registry.ModItems
-import mekanism.api.Action
-import mekanism.api.AutomationType
-import mekanism.api.IContentsListener
-import mekanism.api.RelativeSide
-import mekanism.api.Upgrade
-import mekanism.api.heat.HeatAPI
+import mekanism.api.*
 import mekanism.common.capabilities.fluid.BasicFluidTank
 import mekanism.common.capabilities.heat.BasicHeatCapacitor
 import mekanism.common.capabilities.heat.CachedAmbientTemperature
 import mekanism.common.capabilities.holder.fluid.FluidTankHelper
 import mekanism.common.capabilities.holder.fluid.IFluidTankHolder
-import mekanism.common.capabilities.holder.heat.HeatCapacitorHelper
 import mekanism.common.capabilities.holder.heat.IHeatCapacitorHolder
 import mekanism.common.capabilities.holder.slot.IInventorySlotHolder
 import mekanism.common.capabilities.holder.slot.InventorySlotHelper
 import mekanism.common.inventory.container.MekanismContainer
 import mekanism.common.inventory.container.sync.SyncableBoolean
-import mekanism.common.inventory.container.sync.SyncableDouble
 import mekanism.common.inventory.slot.BasicInventorySlot
 import mekanism.common.inventory.slot.OutputInventorySlot
 import mekanism.common.lib.transmitter.TransmissionType
@@ -44,14 +39,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 class DistillationControllerBlockEntity(
     pos: BlockPos,
     state: BlockState,
-) : TileEntityConfigurableMachine(ModBlocks.DISTILLATION_CONTROLLER, pos, state) {
+) : TileEntityConfigurableMachine(ModBlocks.DISTILLATION_CONTROLLER, pos, state), IExpandedHeatMachine by HeatMachineDelegate() {
 
     var isFormed: Boolean = false
-        private set
-
-    var lastEnvironmentLoss: Double = 0.0
-        private set
-    var lastTransferLoss: Double = 0.0
         private set
 
     lateinit var outputSlot: BasicInventorySlot
@@ -84,9 +74,9 @@ class DistillationControllerBlockEntity(
 
     init {
 
+        attachHeatComponent(this)
         configComponent = TileComponentConfig(this, TransmissionType.FLUID, TransmissionType.ITEM)
         configComponent.setupInputConfig(TransmissionType.FLUID, inputTank)
-
         configComponent.setupOutputConfig(TransmissionType.ITEM, outputSlot, RelativeSide.BOTTOM)
 
         ejectorComponent = TileComponentEjector(this)
@@ -112,17 +102,16 @@ class DistillationControllerBlockEntity(
         listener: IContentsListener?,
         ambientTemperature: CachedAmbientTemperature?
     ): IHeatCapacitorHolder? {
-        val builder = HeatCapacitorHelper.forSide(this::getDirection)
-
-        heatCapacitor = BasicHeatCapacitor.create(
-            10.0,
-            5.0,
-            10.0,
-            { HeatAPI.getAmbientTemp(level, worldPosition) },
-            listener
-        )
-        builder.addCapacitor(heatCapacitor)
-        return builder.build()
+        return HeatMachineDelegate.createSingleCapacitorHolder(
+            directionSupplier = this::getDirection,
+            heatCapacity = 10.0,
+            inverseConduction = 5.0,
+            inverseInsulation = 10.0,
+            ambientTemperature = ambientTemperature,
+            listener = listener
+        ) { createdCapacitor ->
+            heatCapacitor = createdCapacitor
+        }
     }
 
     override fun getInitialFluidTanks(listener: IContentsListener?): IFluidTankHolder? {
@@ -166,9 +155,7 @@ class DistillationControllerBlockEntity(
         super.onUpdateServer()
         val currentLevel = level ?: return
 
-        val loss = simulate()
-        lastEnvironmentLoss = loss.environmentTransfer
-        lastTransferLoss = loss.adjacentTransfer
+        tickHeat(this)
 
         val checkInterval = 20
         if (structureCheckTimer++ >= checkInterval) {
@@ -287,7 +274,5 @@ class DistillationControllerBlockEntity(
     override fun addContainerTrackers(container: MekanismContainer) {
         super.addContainerTrackers(container)
         container.track(SyncableBoolean.create({ isFormed }, { isFormed = it }))
-        container.track(SyncableDouble.create({ lastEnvironmentLoss }, { lastEnvironmentLoss = it }))
-        container.track(SyncableDouble.create({ lastTransferLoss }, { lastTransferLoss = it }))
     }
 }
